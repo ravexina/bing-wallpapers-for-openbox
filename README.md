@@ -14,3 +14,8 @@ Options
 
 ## License
 GPL v2
+
+
+- - -
+Originally forked from: whizzzkid/bing-wallpapers-for-linux  
+However it has been detached and is stand alone because I seek other interests.
