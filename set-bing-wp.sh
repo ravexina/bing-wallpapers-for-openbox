@@ -9,11 +9,14 @@ api="/HPImageArchive.aspx?"
 # Response Format (json|xml).
 format="&format=js"
 
+# Generate a random number between 0-300
+random=$(shuf -i 0-300 -n 1)
+
 # For day (0=current; 1=yesterday... so on).
-day="&idx=0"
+day="&idx=$random"
 
 # Market for image.
-market="&mkt=en-US"
+market="&mkt=es-CL"
 
 # API Constant (fetch how many).
 const="&n=1"
