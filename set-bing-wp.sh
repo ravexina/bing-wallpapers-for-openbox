@@ -70,7 +70,7 @@ imgName=${reqImgURL##*/}
 #mkdir -p $path
 
 # Saving Image to collection.
-curl -L -s -o "$path$imgName" "$reqImgURL"
+wget -ct0 -O "$path$imgName" "$reqImgURL"
 
 # Logging.
 echo "Saving image to $path$imgName"
