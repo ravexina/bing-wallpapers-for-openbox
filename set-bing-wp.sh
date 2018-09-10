@@ -9,8 +9,11 @@ api="/HPImageArchive.aspx?"
 # Response Format (json|xml).
 format="&format=js"
 
-# Generate a random number between 0-7
-random=$(shuf -i 0-7 -n 1)
+# Should I get the currenet wallpaper or a random one?
+if [ "$1" != "c" ]; then
+	# Generate a random number between 0-7
+	random=$(shuf -i 0-7 -n 1)
+fi
 
 # For day (0=current; 1=yesterday... so on).
 day="&idx=$random"
