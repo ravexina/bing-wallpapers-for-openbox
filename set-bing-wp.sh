@@ -1,5 +1,4 @@
 #!/bin/bash
-# author: Whizzzkid (me@nishantarora.in)
 
 # Base URL.
 bing="http://www.bing.com"
@@ -23,104 +22,57 @@ const="&n=1"
 extn=".jpg"
 
 # Size.
-size="1920x1200"
+size="1366x768"
 
 # Collection Path.
-path="$HOME/Pictures/Bing/"
-
-# Make it run just once (useful to run as a cron)
-run_once=false
-while getopts "1" opt; do
-  case $opt in
-    1 )
-      run_once=true
-      ;;
-    \? )
-      echo "Invalid option! usage: \"$0 -1\", to run once and exit"
-      exit 1
-      ;;
-  esac
-done
-
-########################################################################
-#### DO NOT EDIT BELOW THIS LINE #######################################
-########################################################################
+path="$HOME/Pictures/Backgrounds/Bing/"
 
 # Required Image Uri.
 reqImg=$bing$api$format$day$market$const
 
-while [ 1 ]
-do
+echo "$reqImg"
 
-  # Logging.
-  echo "Pinging Bing API..."
+# Logging.
+echo "Pinging Bing API..."
 
-  # Fetching API response.
-  apiResp=$(curl -s $reqImg)
-  if [ $? -gt 0 ]; then
-    echo "Ping failed!"
-    exit 1
-  fi
+# Fetching API response.
+apiResp=$(curl -s $reqImg)
 
-  # Default image URL in case the required is not available.
-  defImgURL=$bing$(echo $apiResp | grep -oP "url\":\"[^\"]*" | cut -d "\"" -f 3)
+if [ $? -gt 0 ]; then
+	echo "Ping failed!"
+	exit 1
+fi
 
-  # Req image url (raw).
-  reqImgURL=$bing$(echo $apiResp | grep -oP "urlbase\":\"[^\"]*" | cut -d "\"" -f 3)"_"$size$extn
-  
-  # Image copyright.
-  copyright=$(echo $apiResp | grep -oP "copyright\":\"[^\"]*" | cut -d "\"" -f 3)
+# Default image URL in case the required is not available.
+defImgURL=$bing$(echo $apiResp | grep -Po "url\":\"[^\"]*" | cut -d "\"" -f 3)
 
-  # Checking if reqImgURL exists.
-  if ! wget --quiet --spider --max-redirect 0 $reqImgURL; then
-    reqImgURL=$defImgURL
-  fi
+# Req image url (raw).
+reqImgURL=$bing$(echo $apiResp | grep -Po "urlbase\":\"[^\"]*" | cut -d "\"" -f 3)"_"$size$extn
 
-  # Logging.
-  echo "Bing Image of the day: $reqImgURL"
+# Image copyright.
+copyright=$(echo $apiResp | grep -Po "copyright\":\"[^\"]*" | cut -d "\"" -f 3)
 
-  # Getting Image Name.
-  imgName=${reqImgURL##*/}
+# Checking if reqImgURL exists.
+if ! wget --quiet --spider --max-redirect 0 $reqImgURL; then
+	reqImgURL=$defImgURL
+fi
 
-  # Create Path Dir.
-  mkdir -p $path
+# Logging.
+echo "Bing Image of the day: $reqImgURL"
 
-  # Saving Image to collection.
-  curl -L -s -o $path$imgName $reqImgURL
+# Getting Image Name.
+imgName=${reqImgURL##*/}
 
-  # Logging.
-  echo "Saving image to $path$imgName"
+# Create Path Dir.
+#mkdir -p $path
 
-  # Writing copyright.
-  echo "$copyright" > $path${imgName/%.jpg/.txt}
-  
-  if [ "$XDG_CURRENT_DESKTOP" = "XFCE" ]
-  then
-    xres=($(echo $(xfconf-query --channel xfce4-desktop --list | grep last-image)))
-    for x in "${xres[@]}"
-    do
-      xfconf-query --channel xfce4-desktop --property $x --set $path$imgName
-    done
-  elif [ "$XDG_CURRENT_DESKTOP" = "MATE" ]
-  then
-    gsettings set org.mate.background picture-filename $path$imgName
-  # Set the wallpaper for unity, gnome3, cinnamon.
-  elif gsettings set org.gnome.desktop.background picture-uri "file://$path$imgName"; then
-    #Logging
-    # Set the view to zoom,
-    gsettings set org.gnome.desktop.background picture-options "zoom"
-  else
-    echo "$XDG_CURRENT_DESKTOP not supported."
-    break
-  fi
+# Saving Image to collection.
+curl -L -s -o "$path$imgName" "$reqImgURL"
 
-  echo "New wallpaper set successfully for $XDG_CURRENT_DESKTOP."
-  
-  # If -1 option was passed just run once
-  if [ $run_once == true ];then
-    break
-  fi
+# Logging.
+echo "Saving image to $path$imgName"
 
-  # Re-checks for updates every 3 hours.
-  sleep 10800
-done
+echo "$copyright" > "$path${imgName/%.jpg/.txt}"
+# Writing copyright.
+
+nitrogen --set-auto "$path$imgName"
