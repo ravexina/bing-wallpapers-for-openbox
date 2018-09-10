@@ -9,7 +9,7 @@ api="/HPImageArchive.aspx?"
 # Response Format (json|xml).
 format="&format=js"
 
-# Generate a random number between 0-300
+# Generate a random number between 0-7
 random=$(shuf -i 0-7 -n 1)
 
 # For day (0=current; 1=yesterday... so on).
