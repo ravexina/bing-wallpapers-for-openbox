@@ -16,7 +16,7 @@ random=$(shuf -i 0-300 -n 1)
 day="&idx=$random"
 
 # Market for image.
-market="&mkt=es-CL"
+market="&mkt=en-US"
 
 # API Constant (fetch how many).
 const="&n=1"
