@@ -9,6 +9,8 @@ api="/HPImageArchive.aspx?"
 # Response Format (json|xml).
 format="&format=js"
 
+random=0
+
 # Should I get the currenet wallpaper or a random one?
 if [ "$1" != "c" ]; then
 	# Generate a random number between 0-7
