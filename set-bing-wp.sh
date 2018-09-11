@@ -71,9 +71,6 @@ echo "Bing Image of the day: $reqImgURL"
 # Getting Image Name.
 imgName=${reqImgURL##*/}
 
-# Create Path Dir.
-#mkdir -p $path
-
 # Saving Image to collection.
 wget -ct0 -O "$path$imgName" "$reqImgURL"
 
