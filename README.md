@@ -17,5 +17,7 @@ GPL v2
 
 
 - - -
-Originally forked from: whizzzkid/bing-wallpapers-for-linux  
+Originally forked from: [whizzzkid/bing-wallpapers-for-linux][1]
 However it has been detached and is stand alone because I seek other interests.
+
+[1]: https://github.com/whizzzkid/bing-wallpapers-for-linux/
