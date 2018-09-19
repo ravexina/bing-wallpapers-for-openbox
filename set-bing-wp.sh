@@ -11,11 +11,17 @@ format="&format=js"
 
 random=0
 
-# Should I get the currenet wallpaper or a random one?
-if [ "$1" != "c" ]; then
+# Get specific wallpaper specefied by number
+re='^[0-9]+$'
+if [[ $1 =~ $re ]] ; then
+    random="$1"
+# if it's not specified nor is current get a random one
+elif [ "$1" != "c" ]; then
 	# Generate a random number between 0-7
 	random=$(shuf -i 0-7 -n 1)
 fi
+
+echo "$random"
 
 # For day (0=current; 1=yesterday... so on).
 day="&idx=$random"
