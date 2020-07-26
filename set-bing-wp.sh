@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Base URL.
-bing="http://www.bing.com"
+bing="https://www.bing.com"
 
 # API end point.
 api="/HPImageArchive.aspx?"
