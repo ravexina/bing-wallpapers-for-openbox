@@ -1,6 +1,6 @@
 # Bing Wallpapers For Linux (Openbox) [Nitrogen]
 
-Run the script for once to set your wallpaper, or create a cron job  
+Run the script for once to set your wallpaper, or create a cron job
 to run the script regularly.
 
 - - -
@@ -8,7 +8,8 @@ to run the script regularly.
 Options
 
 	Run the script without any argument:	Get a random walpaper from current - 7 days ago
-	Pass the latter "c"			Get the current wallpaper
+	Pass the latter "c"			            Get the current wallpaper
+	Pass a number like "1"		            Get the wallpaper from nth day before today (0: today, 1: yesterday, ..., 7)
 
 - - -
 
