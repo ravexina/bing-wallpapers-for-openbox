@@ -39,7 +39,10 @@ extn=".jpg"
 size="1366x768"
 
 # Collection Path.
-path="$HOME/Pictures/Backgrounds/Bing/"
+Backgrounds_path="$HOME/Pictures/Backgrounds/Bing/"
+
+# mkdir path if not exixst
+mkdir -p $Backgrounds_path
 
 # Required Image Uri.
 reqImg=$bing$api$format$day$market$const
@@ -78,12 +81,12 @@ echo "Bing Image of the day: $reqImgURL"
 imgName=${reqImgURL##*/}
 
 # Saving Image to collection.
-wget -ct0 -O "$path$imgName" "$reqImgURL"
+wget -ct0 -O "$Backgroundspath$imgName" "$reqImgURL"
 
 # Logging.
-echo "Saving image to $path$imgName"
+echo "Saving image to $Backgrounds_path$imgName"
 
-echo "$copyright" > "$path${imgName/%.jpg/.txt}"
+echo "$copyright" > "$Backgrounds_path${imgName/%.jpg/.txt}"
 # Writing copyright.
 
-nitrogen --set-auto "$path$imgName"
+nitrogen --set-auto "$Backgrounds_path$imgName"
